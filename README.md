@@ -20,8 +20,9 @@ Sovelluksen ominaisuuksia:
 
 
 **Viikko 2**
--luotiin pohja-
--luotiin sivu allplans aktiivisena oleville suunnitelmille
--luotiin sivu allplansin sisään testiksi 
-
+- luotiin pohja
+- luotiin sivu allplans aktiivisena oleville suunnitelmille
+- luotiin sivu allplansin sisään testiksi 
+- Aloitettiin kirjautumissivu (voi koittaa kirjautua, ei välitä vielä salasanansta
+- Aloitettiin tietokanta plans ei voi vielä nähdä
 
