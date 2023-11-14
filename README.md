@@ -19,6 +19,9 @@ Sovelluksen ominaisuuksia:
   
 
 
-
+**Viikko 2**
+-luotiin pohja-
+-luotiin sivu allplans aktiivisena oleville suunnitelmille
+-luotiin sivu allplansin sisään testiksi 
 
 
