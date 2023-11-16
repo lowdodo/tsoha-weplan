@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 def index():
     return render_template("index.html")
 
-#login toimii atm MUTTEI TARKASTA TAI SAVEE
+#login todo: check the username n pw
 @app.route("/login", methods=["POST"])
 def login():
     username = request.form["username"]
@@ -22,7 +22,19 @@ def login():
 @app.route("/logout")
 def logout():
     del session["username"]
-    return redirect("/")    
+    return redirect("/") 
+
+#register:
+@app.route("/register", methods=["GET","POST"])
+def register():
+    #user gets registeration form
+    if request.method == "GET":
+        return render_template("register.html")
+    #register info to server
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        return redirect("/")
 
 #We dont currently use this that much sorry
 @app.route("/allplans")
