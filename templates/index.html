@@ -1,22 +1,22 @@
 <h2>Weplan</h2>
 
-{% if session.username %}
+{% if session.name %}
 
 <h3>Welcome!</h3>
-You have logged in as <b>{{ session.username }}</b>
+You have logged in as <b>{{ session.name }}</b>
 <a href="/logout">Logout</a>
 {% else %}
 <h3>Frontpage</h3>
 <b>Welcome to weplan! Do you want to log in?</b>
 <form action="/login" method="POST">
 <p>Username:<br>
-<input type="text" name="username"></p>
+<input type="text" name="name"></p>
 
 <p>Password:<br>
 <input type="password" name="password"></p>
 
 <input type="submit" value="Login">
 </form>
-<p>New user?:<br>
+<p>New user?<br>
 <a href="/register">Register here</a></p>
 {% endif %}

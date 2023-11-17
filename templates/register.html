@@ -1,12 +1,14 @@
-<form method="POST" action="/register">
 <h2>Register to weplan</h2>
-<p>Username:<br>
-<input type="text" name="username"></p>
 
-<p>Password:<br>
-<input type="password" name="password"></p>
+<form method="POST" action="/register">
 
-<p>
-<input type="submit" value="Luo tunnus">
-</p>
+    <p>Username:<br>
+    <input type="text" name="name"></p>
+
+    <p>Password:<br>
+    <input type="password" name="password1" required></p>
+    <p>Repeat password:<br>
+    <input type="password" name="password2" required></p>
+    <p>
+    <input type="submit" value="Register"></p>
 </form>

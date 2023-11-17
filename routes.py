@@ -1,27 +1,28 @@
-from app import app
 from flask import Flask, session, render_template, request, redirect
-import users
 from flask_sqlalchemy import SQLAlchemy
+import users
+from app import app
 
 #First page we see, later we'll make this real pretty alright
 @app.route("/")
 def index():
     return render_template("index.html")
 
-#login todo: check the username n pw
+#login todo: check the name n pw
 @app.route("/login", methods=["POST"])
 def login():
-    username = request.form["username"]
+    name = request.form["name"]
     password = request.form["password"]
-    # todo: checking the username and password
-    session["username"] = username
-    value = session["username"]
+    # todo: checking the name and password
+    session["name"] = name
+    value = session["name"]
     return redirect("/")
 
 #logout
 @app.route("/logout")
 def logout():
-    del session["username"]
+    del session["name"]
+    del session["user_id"]
     return redirect("/") 
 
 #register:
@@ -30,11 +31,21 @@ def register():
     #user gets registeration form
     if request.method == "GET":
         return render_template("register.html")
-    #register info to server
+    #register user to server
     if request.method == "POST":
-        username = request.form["username"]
-        password = request.form["password"]
-        return redirect("/")
+        name = request.form["name"]
+        password1 = request.form["password1"]
+        password2 = request.form["password2"]
+
+        if password1 != password2:
+            return render_template("error.html", message="passwords differ")
+
+        if users.register(name, password1):
+            if users.login(name, password1):
+                return redirect("/")
+        
+
+        return render_template("error.html", message="registeration failed")
 
 #We dont currently use this that much sorry
 @app.route("/allplans")
