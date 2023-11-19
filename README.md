@@ -20,9 +20,9 @@ Sovelluksen ominaisuuksia:
 
 
 **Viikko 2**
-- luotiin pohja
-- luotiin sivu allplans aktiivisena oleville suunnitelmille
-- luotiin sivu allplansin sisään testiksi 
-- Aloitettiin kirjautumissivu (voi koittaa kirjautua, ei välitä vielä salasanansta
-- Aloitettiin tietokanta plans ei voi vielä nähdä
+- luotiin kirjautuminen, rekisteröityminen ja logout. Testattu luomalla käytättäjä Testikäyttäjä ss: 1234 jolla kirjauduttiin, poistuttiin ja kirjauduttiin uudestaan
+- luotiin etusivu, rekisteröitymissivu, plans sivu ja erilliset sivut suunnitelmille
+- tietokannat käyttäjille, suunnitelmille ja alisuunnitelmille, testattu sillä, että käyttäjää pystyi käyttämään, suunnitelmia katsomaan. Alisuunnitelmat eivät toimi vielä.
+
+
 
