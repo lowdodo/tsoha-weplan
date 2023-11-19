@@ -1,5 +1,8 @@
-<h2>{{ name }}</h2>
+<b>{{ name }}</b>
 
-<ul> Describtion: {{ describtion}}
-<li> Owner: {{ creator }}
+<ul> description: {{ description }}
+
+{% if creator_id %}
+<li> Owner: {{ creator_id }}
 </ul>
+{% endif %}
