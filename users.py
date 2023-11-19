@@ -1,7 +1,7 @@
 import os
 from db import db
-import users
 from flask_sqlalchemy import SQLAlchemy
+from flask import abort, request, session
 
 from flask import abort, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -9,22 +9,24 @@ from sqlalchemy.sql import text
 
 #lets do the login of the users, for now, this is from example
 def login(name, password):
-    sql = text("SELECT password, userid FROM users WHERE name=:name")
+    sql = text("SELECT password, user_id FROM users WHERE name=:name")
     result = db.session.execute(sql, {"name":name})
     user = result.fetchone()
     if not user:
         return False
-    else:
-        hash_value = user.password
-        if check_password_hash(hash_value, password):
-            session["user_id"] = user.userid
-            session["user_name"] = name
-            return True
+    storedpw, user_id = user
+    if not check_password_hash(storedpw, password):
+            return False
+    
+    session["user_id"] = user_id
+    session["name"] = name
+    return True
 
 #loggin out
 def logout():
     del session["user_id"]
-    del session["user_name"]
+    del session["name"]
+
 
 #lets register first without roles:
 def register(name, password):
@@ -44,6 +46,13 @@ def register(name, password):
 #getting the user_id:
 def user_id():
     return session.get("user_id", 0)
+
+def user_id_forname(name):
+    sql = text("SELECT user_id FROM users WHERE name=:name")
+    result = db.session.execute(sql, {"name": name}).fetchone()
+    if result:
+        return result[0]
+    return None
 
 def check_csrf():
     if session["csrf_token"] != request.form["csrf_token"]:
