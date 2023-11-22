@@ -23,7 +23,7 @@ Nyt voit käynnistää sovelluksen komennolla
 
 $ flask run
 
-Voi olla, että joudut muuttamaan joidenkin tietokantojen nimiä, esim. users on helposti sama, kuin joillain muilla. Katso tähän ohjeet meilistä! 
+Voi olla, että joudut muuttamaan joidenkin tietokantojen nimiä, esim. users on helposti sama, kuin joillain muilla. Katso tähän ohjeet meilistä tai vertaisarvioinnin ohjeet moocista! 
 
 
 
