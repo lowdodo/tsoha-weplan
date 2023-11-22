@@ -6,6 +6,27 @@ tietokannat ja web ohjelmointi kurssi 2023
 
 Sovelluksessa on tarkoitus pystyä yhdessä jollain porukalla, esim. ainejärjestö, kaveriporukka tai kämppikset, suunnitella yhteisiä tapahtumia/juhlia/tai vaikka viikkosiivousta. Muiden prosessin näkeminen on tarkoitus olla kilpailuhenkinen lisäys suunnitelmaan, ja ehkä myöhemmin lisätä ulkoasussa siihen pelimäisiä piirteitä (hahmoja???)
 
+**Käynnistysohjeet**
+loonaa tämä repositorio omalle koneellesi ja siirry sen juurikansioon. Luo kansioon .env-tiedosto ja määritä sen sisältö seuraavanlaiseksi:
+
+DATABASE_URL= "postgresql:///lowdodo"
+SECRET_KEY="f3ea2ebfbd91ed3df061f4c56bf9645c"
+Seuraavaksi aktivoi virtuaaliympäristö ja asenna sovelluksen riippuvuudet komennoilla
+
+$ python3 -m venv venv
+$ source venv/bin/activate
+$ pip install -r ./requirements.txt
+Määritä vielä tietokannan skeema komennolla
+
+$ psql < tables.sql HUOM minulla ei lue schema
+Nyt voit käynnistää sovelluksen komennolla
+
+$ flask run
+
+Voi olla, että joudut muuttamaan joidenkin tietokantojen nimiä, esim. users on helposti sama, kuin joillain muilla. Katso tähän ohjeet meilistä! 
+
+
+
 Sovelluksen ominaisuuksia: 
 
 - käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
