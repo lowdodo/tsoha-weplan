@@ -1,8 +1,25 @@
 <b>{{ name }}</b>
 
-<ul> description: {{ description }}
+<ul>
+    <li>description: {{ description }}</li>
 
-{% if creator_id %}
-<li> Owner: {{ creator_id }}
+    {% if creator_id %}
+        <li>Owner: {{ creator_id}}</li>
+    {% endif %}
+
+    {% if subplans_id %}
+        <li>description: {{ description }}</li>
+    {% endif %}
 </ul>
+{% if subplans_info %}
+    <h2>Subplans:</h2>
+    <ul>
+        {% for subplan_info in subplans_info %}
+            <li>{{ subplan_info.name }} - {{ subplan_info.description }}</li>
+        {% endfor %}
+    </ul>
 {% endif %}
+
+<li><a href="/removeplan/{{ plan_id }}">Remove</a></li>
+
+<li><a href="/addsub/{{ plan_id }}">Add</a></li>
