@@ -1,0 +1,13 @@
+<h2>Add new subplans</h2>
+<form action="/addsub/{{ plan_id }}" method="POST">
+    {% for i in range(num_subplans) %}
+        <p>Subplan {{ i+1 }}:</p>
+        <p>Name your subplan:<br>
+        <input type="text" name="name{{ i }}" minlength="1" maxlength="20"></p>
+
+        <p>Add description:</p>
+        <textarea name="description{{ i }}" rows="8" cols="40" maxlength="1000"></textarea>
+    {% endfor %}
+
+    <input type="submit" value="Submit">
+</form>
