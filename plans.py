@@ -34,7 +34,6 @@ def add_plan(creator_id, name, description, newsubplans, new):
 def remove_plan(plan_id, user_id):
     sql_remove_plan = text("UPDATE plans SET visible=0 WHERE plan_id=:plan_id AND creator_id=:user_id")
     sql_remove_subplans = text("UPDATE subplans SET visible=0 WHERE plan_id=:plan_id AND creator_id=:user_id")
-
     db.session.execute(sql_remove_plan, {"plan_id": plan_id, "user_id": user_id})
     db.session.execute(sql_remove_subplans, {"plan_id": plan_id, "user_id": user_id})
 
