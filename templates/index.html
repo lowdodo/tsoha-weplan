@@ -13,7 +13,7 @@ You have logged in as <b>{{ session.name }}</b>
 
 Here is the list of all active plans:
 <ul>{% for plan in plans %}
-<li><a href="/plan/{{ plan.id }}">{{ plan.name }}</a></li>
+<li><a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a></li>
 {% endfor %}
 </ul>
 Add a plan: 
