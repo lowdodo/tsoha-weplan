@@ -28,3 +28,11 @@ CREATE TABLE priority (
     name INTEGER REFERENCES plans(plan_id),
     visible INTEGER
 );
+
+
+CREATE TABLE ownplans (
+    user_plan_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(user_id),
+    plan_id INTEGER REFERENCES plans(plan_id),
+    visible INTEGER
+);
