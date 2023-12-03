@@ -6,12 +6,15 @@
     {% if creator_id %}
         <li>Owner: {{ creator_id}}</li>
     {% endif %}
-
-    {% if subplans_id %}
-        <li>description: {{ description }}</li>
+    <br>
+    {% if subplans_info %}
+        Next steps
+        <hr>
+        <li>{{subplans_info.name }}</li>
     {% endif %}
 </ul>
-{% if subplans_info %}
+
+{% if subplans_id %}
     <h2>Subplans:</h2>
     <ul>
         {% for subplan_info in subplans_info %}
@@ -23,3 +26,5 @@
 <li><a href="/removeplan/{{ plan_id }}">Remove</a></li>
 
 <li><a href="/addsub/{{ plan_id }}">Add</a></li>
+
+<p><a href="/">Go back to Weplan</a></p>
