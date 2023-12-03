@@ -1,5 +1,6 @@
-<h2>Weplan</h2>
-<hr>
+<title>Weplan</title>
+
+<h1>WeÞlan</h1>
 
 {% if session.name %}
 
@@ -12,9 +13,10 @@ You have logged in as <b>{{ session.name }}</b>
 <hr>
 
 Here is the list of all active plans:
-<ul>{% for plan in plans %}
-<li><a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a></li>
-{% endfor %}
+<ul>
+  {% for plan in plans %}
+    <li><a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a></li>
+  {% endfor %}
 </ul>
 Add a plan: 
 <li><a href="/addplan">Add a new plan</a>
