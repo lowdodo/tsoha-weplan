@@ -1,4 +1,4 @@
-from flask import session, render_template, request, redirect
+from flask import session, render_template, request, redirect, flash
 import users, plans
 from users import user_id_forname
 from app import app
@@ -6,9 +6,8 @@ from app import app
 #First page we see, later we'll make this real pretty alright
 @app.route("/")
 def index():
-    return render_template("index.html", plans=plans.get_allplans())
+    return render_template("index.html", session=session, plans=plans.get_allplans())
 
-#login todo: check the name n pw
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "GET":
@@ -66,18 +65,18 @@ def add_plan():
         if len(description) > 1000:
             return render_template("error.html", message="use shorter description")
         creator_id = session.get("user_id")
-
-        plan_id = plans.add_plan(creator_id, name, description, newsubplans=None, new=True)
+        plan_id = plans.add_plan(creator_id, name, description)
+        flash("new plan added")
         return redirect("/")
 
 @app.route("/addsub/<int:plan_id>", methods=["GET", "POST"])
-def add_sub(plan_id):
+def add_subplan(plan_id):
     if request.method == "GET":
-        num_subplans = 2 
+        num_subplans = 2
         return render_template("addsub.html", plan_id=plan_id, num_subplans=num_subplans)
 
     if request.method == "POST":
-        num_subplans = int(request.form.get("num_subplans", 1)) 
+        num_subplans = int(request.form.get("num_subplans", 1))
         creator_id = session.get("user_id")
 
         for i in range(num_subplans):
@@ -90,10 +89,11 @@ def add_sub(plan_id):
             if len(description) > 1000:
                 return render_template("error.html", message=f"Use a shorter description for subplan {i+1}")
 
-            subplan_id = plans.add_plan(creator_id, name, description, newsubplans=None, new=True)
+            plans.add_subplan(creator_id, plan_id, name, description)
 
+        flash("new subplans added")
         return redirect(f"/plan/{plan_id}")
-
+    
 @app.route("/plan/<int:plan_id>")
 def show_plan(plan_id):
     print("hsow pö'sij")
@@ -105,7 +105,7 @@ def show_plan(plan_id):
     print("pääsin tänne asti plan infopn")
     #is there subplans?
     subplans_info = plans.get_subplan_info(plan_id)
-
+    print("TÄSSÄ subinfo", subplans_info)
     if subplans_info:
         subdescription = subplans_info[2]
         subname = subplans_info[1]
@@ -117,9 +117,11 @@ def show_plan(plan_id):
 
 @app.route("/removeplan/<int:plan_id>")
 def remove_plan(plan_id):
-    print("Pääsin tänne asti")
+    #later add "are you sure you want to remove" before actually removing
     user_id = session.get("user_id")
-    print(user_id, "saatiin userid")
+    creator_id = plans.get_plan_info(plan_id)[0] 
+    if user_id != creator_id:
+        return render_template("error.html", message="You dont have permission to remove this plan.")
     plans.remove_plan(plan_id, user_id)
     print("poisto onnistui")
     return redirect("/")
