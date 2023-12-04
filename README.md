@@ -45,5 +45,10 @@ Sovelluksen ominaisuuksia:
 - luotiin etusivu, rekisteröitymissivu, plans sivu ja erilliset sivut suunnitelmille
 - tietokannat käyttäjille, suunnitelmille ja alisuunnitelmille, testattu sillä, että käyttäjää pystyi käyttämään, suunnitelmia katsomaan. Alisuunnitelmat eivät toimi vielä.
 
+**Viikko 3**
+- lisätty alisuunnitelmat toimivaksi
+- lisätty kaksi eri tietokantaa, priority ja ownplans, ei toimi vielä
+- korjattu ulkoasua
+
 
 
