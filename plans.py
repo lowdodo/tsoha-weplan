@@ -14,15 +14,16 @@ def choose_plan(plan_id):
     sql = text("SELECT plan.name, user.name, plan.description FROM plans, users WHERE plan.id = :plan_id AND plan.creator_name = user.name")
     return db.session.execute(sql, {"plan_id": plan_id}).fetchone()
 
-def add_plan(creator_id, name, description):
-    sql = text("INSERT INTO plans (creator_id, name, description, visible) VALUES (:creator_id, :name, :description, 1) RETURNING plan_id")
-    plan_id = db.session.execute(sql, {"creator_id": creator_id, "name": name, "description": description}).fetchone()[0]
+def add_plan(creator_id, creator_name, name, description):
+    sql = text("INSERT INTO plans (creator_id, creator_name, name, description, visible) VALUES (:creator_id, :creator_name, :name, :description, 1) RETURNING plan_id")
+    plan_id = db.session.execute(sql, {"creator_id": creator_id, "creator_name": creator_name, "name": name, "description": description}).fetchone()[0]
     db.session.commit()
     return plan_id
 
-def add_subplan(creator_id, plan_id, name, description):
-    sql = text("INSERT INTO subplans (plan_id, creator_id, name, description, visible) VALUES (:plan_id, :creator_id, :name, :description, 1) RETURNING subplans_id")
-    subplans_id = db.session.execute(sql, {"plan_id": plan_id, "creator_id": creator_id, "name": name, "description": description}).fetchone()[0]
+
+def add_subplan(creator_id, creator_name, plan_id, name, description):
+    sql = text("INSERT INTO subplans (plan_id, creator_id, creator_name, name, description, visible) VALUES (:plan_id, :creator_id, :creator_name, :name, :description, 1) RETURNING subplans_id")
+    subplans_id = db.session.execute(sql, {"plan_id": plan_id, "creator_id": creator_id, "creator_name": creator_name, "name": name, "description": description}).fetchone()[0]
     db.session.commit()
     return subplans_id
 
@@ -43,15 +44,12 @@ def remove_subplan(subplans_id, user_id):
     db.session.commit()
 
 def get_plan_info(plan_id):
-    sql = text("SELECT creator_id, name, description FROM plans WHERE plan_id=:plan_id")
+    sql = text("SELECT creator_id, creator_name, name, description FROM plans WHERE plan_id=:plan_id")
     result = db.session.execute(sql, {"plan_id": plan_id}).fetchone()
     print(result)
     return result
 
 def get_subplan_info(plan_id):
-    sql = text("SELECT creator_id, name, description, subplans_id FROM subplans WHERE plan_id=:plan_id AND visible=1")
-    print("SQL Query:", sql)
-    print("Plan ID:", plan_id)
-    subresult = db.session.execute(sql, {"plan_id": plan_id}).fetchone()
-    print(subresult)
+    sql = text("SELECT creator_id, creator_name, name, description, subplans_id FROM subplans WHERE plan_id=:plan_id AND visible=1")
+    subresult = db.session.execute(sql, {"plan_id": plan_id}).fetchall()
     return subresult
