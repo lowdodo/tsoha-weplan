@@ -1,38 +1,53 @@
-<title>Weplan</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weplan</title>
+  <style>
+    body {
+      margin: auto;
+      text-align: center;
+      font-family:'Courier New', Courier, monospace;
+    }
+  </style>
+</head>
+<body>
 
 <h1>WeÞlan</h1>
-
-{% if session.name %}
-
-<h3>Welcome!</h3>
-You have logged in as <b>{{ session.name }}</b>
-<p></p>
-<a href="/logout">Logout</a>
-<br>
-<p></p>
 <hr>
+{% if session.name %}
+  <h3>Welcome!</h3>
+  You have logged in as <b>{{ session.name }}</b>
+  <p></p>
+  <a href="/logout">Logout</a>
+  <br><br>
+  <hr>
 
-Here is the list of all active plans:
-<ul>
-  {% for plan in plans %}
-    <li><a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a></li>
-  {% endfor %}
-</ul>
-Add a plan: 
-<li><a href="/addplan">Add a new plan</a>
+  Here is the list of all active plans:
+  <ul>
+    {% for plan in plans %}
+    <a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a><br>
+    {% endfor %}
+  </ul>
+  Add a plan: 
+  <a href="/addplan">Add a new plan</a>
 
 {% else %}
-<h3>Frontpage</h3>
-<b>Welcome to weplan! Do you want to log in?</b>
-<form action="/login" method="POST">
-<p>Username:<br>
-<input type="text" name="name"></p>
+  <h3>Frontpage</h3>
+  <b>Welcome to weplan! Do you want to log in?</b>
+  <form action="/login" method="POST">
+    <p>Username:<br>
+      <input type="text" name="name"></p>
 
-<p>Password:<br>
-<input type="password" name="password"></p>
+    <p>Password:<br>
+      <input type="password" name="password"></p>
 
-<input type="submit" value="Login">
-</form>
-<p>New user?<br>
-<a href="/register">Register here</a></p>
+    <input type="submit" value="Login">
+  </form>
+  <p>New user?<br>
+    <a href="/register">Register here</a></p>
 {% endif %}
+
+</body>
+</html>
