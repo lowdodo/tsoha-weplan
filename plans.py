@@ -38,9 +38,9 @@ def remove_plan(plan_id, user_id):
     db.session.commit()
 
 
-def remove_subplan(subplans_id, user_id):
-    sql = text("UPDATE subplans SET visible=0 WHERE subplans_id=:subplans_id AND creator_id=:user_id")
-    db.session.execute(sql, {"subplans_id": subplans_id, "user_id": user_id})
+def remove_subplan(subplans_id, user_id, mainplan_creator):
+    sql = text("UPDATE subplans SET visible=0 WHERE (subplans_id=:subplans_id AND creator_id=:mainplan_creator) OR (subplans_id=:subplans_id AND creator_id=:user_id)")
+    db.session.execute(sql, {"subplans_id": subplans_id, "user_id": user_id, "mainplan_creator": mainplan_creator})
     db.session.commit()
 
 def get_plan_info(plan_id):
@@ -52,4 +52,9 @@ def get_plan_info(plan_id):
 def get_subplan_info(plan_id):
     sql = text("SELECT creator_id, creator_name, name, description, subplans_id FROM subplans WHERE plan_id=:plan_id AND visible=1")
     subresult = db.session.execute(sql, {"plan_id": plan_id}).fetchall()
+    return subresult
+
+def get_subinfo_byid(subplans_id):
+    sql = text("SELECT creator_id, creator_name, name, description FROM subplans WHERE subplans_id=:subplans_id AND visible=1")
+    subresult = db.session.execute(sql, {"subplans_id": subplans_id}).fetchall()
     return subresult
