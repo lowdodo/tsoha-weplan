@@ -10,7 +10,8 @@ CREATE TABLE plans (
     creator_name TEXT REFERENCES users(name),
     name TEXT,
     description TEXT,
-    visible INTEGER
+    visible INTEGER,
+    is_done BOOLEAN
 );
 
 CREATE TABLE subplans (
@@ -20,7 +21,8 @@ CREATE TABLE subplans (
     creator_name TEXT REFERENCES users(name),
     name TEXT,
     description TEXT,
-    visible INTEGER
+    visible INTEGER,
+    is_done BOOLEAN
 );
 
 CREATE TABLE priority (
