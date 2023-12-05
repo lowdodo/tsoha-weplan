@@ -113,10 +113,12 @@ def show_plan(plan_id):
         creator_name = subplan_info.creator_name
         name = subplan_info.name
         description = subplan_info.description
+        id = subplan_info.subplans_id
         subplans.append({
             "creator": creator_name,
             "name": name,
-            "description": description
+            "description": description,
+            "id": id
         })
 
     return render_template("plan.html", plan_id=plan_id, main_plan=main_plan, subplans_info=subplans)
@@ -131,6 +133,21 @@ def remove_plan(plan_id):
     plans.remove_plan(plan_id, user_id)
     print("poisto onnistui")
     return redirect("/")
+
+@app.route("/removesubplan/<int:plan_id>/<int:subplans_id>")
+def remove_subplan(subplans_id, plan_id):
+    #later add "are you sure you want to remove" before actually removing
+    user_id = session.get("user_id")
+    mainplan_creator = plans.get_plan_info(plan_id)[0]
+    print("tässä on mainvcer", mainplan_creator)
+    creator = plans.get_subinfo_byid(subplans_id)[0][0]
+    print("tässä on creator", creator) 
+    print("tässä on user", user_id)
+    if user_id != creator or user_id != mainplan_creator:
+        return render_template("error.html", message="You dont have permission to remove this plan.")
+    plans.remove_subplan(subplans_id, user_id, mainplan_creator)
+    print("poisto onnistui")
+    return redirect(f"/plan/{plan_id}")
 
 
 if __name__ == "__main__":
