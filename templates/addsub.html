@@ -1,15 +1,31 @@
-<h2>Add new subplans</h2>
-<form action="/addsub/{{ plan_id }}" method="POST">
-    {% for i in range(num_subplans) %}
-        <p>Subplan {{ i+1 }}:</p>
-        <p>Name your subplan:<br>
-        <input type="text" name="name{{ i }}" minlength="1" maxlength="20"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weplan - Add subplan</title>
 
-        <p>Add description:</p>
-        <textarea name="description{{ i }}" rows="8" cols="40" maxlength="1000"></textarea>
-    {% endfor %}
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+</head>
+<body>
+
+<h2>Add new subplans</h2>
+
+<form action="/addsub/{{ plan_id }}" method="POST">
+    <p>Name your subplan:<br>
+    <input type="text" name="name" minlength="1" maxlength="30"></p>
+
+    <p>Add description:</p>
+    <div class="description">
+        <textarea name="description" rows="8" cols="40" maxlength="1000"></textarea>
+    </div>
 
     <input type="submit" value="Submit">
 </form>
 
-<p><a href="/">Go back to Weplan</a></p>
+<p><a href="/" class="go-back-link">Go back to Weplan</a></p>
+
+
+</body>
+</html>
