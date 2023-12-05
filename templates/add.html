@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weplan - Add plan</title>
+
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+
+</head>
+
 <h2>Add a new plan</h2>
 <form action="/addplan" method="POST">
     <input type="hidden" name="creator_id" value="{{ session.user_id }}">
@@ -7,10 +18,10 @@
     <p>Add description:</p>
     <textarea name="description" rows="8" cols="40" maxlength="1000"></textarea></p>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="submitbutton">
 </form>
 
 
 </ul>
-<p><a href="/">Go back to Weplan</a></p>
+<p><a href="/" class="go-back-link">Go back to Weplan</a></p>
 
