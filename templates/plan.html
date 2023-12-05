@@ -29,7 +29,7 @@
         <p>{{ subplan.description }}</p>
         <p>Creator: {{ subplan.creator}}</p>
         <form action="/mark_done/{{ plan_id }}/{{ subplan.id }}" method="post">
-          <input type="checkbox" name="is_done" {% if subplan.is_done %}checked{% endif %} class="styled-checkbox" id="checkbox-{{ subplan.id }}">
+          <input type="checkbox" name="is_done" {% if subplan.is_done %}checked{% endif %}  id="checkbox-{{ subplan.id }}">
           <label for="checkbox-{{ subplan.id }}" class="styled-label">Mark as Done</label>
           <button type="submit" class="submitbutton">Submit</button>
         </form>
