@@ -85,8 +85,8 @@ def add_subplan(plan_id):
         name = request.form["name"]
         description = request.form[f"description"]
 
-        if len(name) < 1 or len(name) > 20:
-            return render_template("error.html", message=f"Name of subplan should be 1-20 characters long")
+        if len(name) < 1 or len(name) > 30:
+            return render_template("error.html", message=f"Name of subplan should be 1-30 characters long")
 
         if len(description) > 1000:
             return render_template("error.html", message=f"Use a shorter description")
