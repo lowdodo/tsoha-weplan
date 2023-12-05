@@ -68,7 +68,7 @@ def add_plan():
         print(session)
         creator_id = session.get("user_id")
         creator_name = session.get("name")
-        plan_id = plans.add_plan(creator_id, creator_name, name, description)
+        plan_id = plans.add_plan(creator_id, creator_name, name, description, is_done=False)
         flash("new plan added")
         return redirect("/")
 
@@ -91,7 +91,7 @@ def add_subplan(plan_id):
         if len(description) > 1000:
             return render_template("error.html", message=f"Use a shorter description")
 
-        plans.add_subplan(creator_id, creator_name, plan_id, name, description)
+        plans.add_subplan(creator_id, creator_name, plan_id, name, description, is_done=False)
 
         flash("new subplan added")
         return redirect(f"/plan/{plan_id}")
@@ -103,6 +103,7 @@ def show_plan(plan_id):
         "creator": plan_info.creator_name,
         "name": plan_info.name,
         "description": plan_info.description,
+        "status": plan_info.is_done
     }
 
     #are there subplans?
@@ -114,11 +115,14 @@ def show_plan(plan_id):
         name = subplan_info.name
         description = subplan_info.description
         id = subplan_info.subplans_id
+        status = subplan_info.is_done
+        print(status)
         subplans.append({
             "creator": creator_name,
             "name": name,
             "description": description,
-            "id": id
+            "id": id,
+            "status":status
         })
 
     return render_template("plan.html", plan_id=plan_id, main_plan=main_plan, subplans_info=subplans)
@@ -148,6 +152,22 @@ def remove_subplan(subplans_id, plan_id):
     plans.remove_subplan(subplans_id, user_id, mainplan_creator)
     print("poisto onnistui")
     return redirect(f"/plan/{plan_id}")
+
+@app.route("/mark_done/<int:plan_id>", methods= ["POST"])
+def plandone(plan_id):
+    current_status = plans.get_plan_info(plan_id)[4]
+    new_status = True
+    user_id = session.get("user_id")
+    plans.update_planstatus(plan_id, new_status, user_id)
+    return redirect("/")
+
+@app.route("/mark_done/<int:plan_id>/<int:subplans_id>", methods= ["POST"])
+def subplandone(subplans_id, plan_id):
+    current_status = plans.get_subinfo_byid(subplans_id)[0]
+    new_status = True
+    user_id = session.get("user_id")
+    plans.update_planstatus(subplans_id, new_status, user_id)
+    return redirect("/") 
 
 
 if __name__ == "__main__":
