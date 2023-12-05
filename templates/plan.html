@@ -3,20 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Weplan - {{name}}</title>
-  <style>
-    body {
-      margin: auto;
-      text-align: center;
-      font-family:'Courier New', Courier, monospace;
-    }
-  </style>
+  <title>Weplan - {{ name }}</title>
+
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+
 </head>
 <body>
 
 <ul>
 <h1>{{ main_plan.name }}</h1>
-<p>Description: {{ main_plan.description }}</p>
+{% if main_plan.description %}
+<p>{{ main_plan.description }}</p>
+{%endif%}
 <p>Creator: {{ main_plan.creator }}</p>
 
 {% if subplans_info %}
@@ -27,6 +25,7 @@
         <h4>{{ subplan.name}}</h4>
         <p>{{ subplan.description }}</p>
         <p>Creator: {{ subplan.creator}}</p>
+        <a href="/removesubplan/{{ plan_id }}/{{ subplan.id }}">Remove subplan</a>
         <hr>
     {% endfor %}
 {% endif %}
@@ -35,6 +34,7 @@
 
 <a href="/addsub/{{ plan_id }}">Add</a>
 
-<p><a href="/">Go back to Weplan</a></p>
+<p><a href="/" class="go-back-link">Go back to Weplan</a></p>
+
 </body>
 </html>
