@@ -1,0 +1,48 @@
+body {
+    margin: auto;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    background-color:  #463753;
+    color: #f8b195;
+    font-size:larger
+}
+
+h1, h2, h3, h4 {
+    color: #f67280; 
+}
+
+a {
+    color: #f8b195;
+}
+
+a:hover{
+    color:#f67280
+}
+
+div.description {
+    white-space: pre-line;
+}
+
+textarea{
+    color:#355c7d;
+    background-color: #f8b195;
+}
+
+input{
+    color:#355c7d;
+    background-color: #f8b195;
+}
+
+button.submitbutton,
+a.go-back-link {
+    background-color: #f67280;
+    border: #355c7d;
+    color: white;
+    text-align: center;
+    padding: 1%;
+    text-decoration: wavy;
+    display: inline-block;
+    font-size:medium;
+    margin: 3px 1px;
+    cursor: pointer;
+}
