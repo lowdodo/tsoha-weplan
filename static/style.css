@@ -46,3 +46,8 @@ a.go-back-link {
     margin: 3px 1px;
     cursor: pointer;
 }
+
+.styledlabel {
+    color: #f67280;
+    cursor: pointer;
+}
