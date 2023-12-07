@@ -9,7 +9,14 @@
 
 </head>
 <body>
-
+{% if session.name %}
+<nav class="topnav">
+  <h2><a class="active" href="/">WeÞlan</a></h2>
+  <a href="/ownplans/{{session.user_id}}">Joined plans</a>
+  <a href="/addplan">Add a new plan</a>
+  <a href="/logout">Logout</a>
+</nav>
+{% endif %}
 <h1>WeÞlan</h1>
 <hr>
 {% if session.name %}
@@ -19,15 +26,19 @@
   <a href="/logout">Logout</a>
   <br><br>
   <hr>
-
   Here is the list of all active plans:
   <ul>
     {% for plan in plans %}
     <a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a><br>
+    <form action="/ownplans/{{ plan.plan_id }}" method="post">
+      <button type="submit" class="submitbutton">Add to own plans</button>
+    </form>
     {% endfor %}
   </ul>
   Add a plan: 
   <a href="/addplan">Add a new plan</a>
+
+  <a href="/ownplans/{{ user_plan_id }}">Own plans</a>
 
 {% else %}
   <h3>Frontpage</h3>
