@@ -9,9 +9,12 @@
 
 </head>
 <body>
-
+<nav class="topnav">
+  <a href="/ownplans/{{user_id}}">Joined plans</a>
+  <a href="/addplan">Add a new plan</a>
+  <a href="/logout">Logout</a>
+</nav>
 <h2>Add new subplans</h2>
-
 <form action="/addsub/{{ plan_id }}" method="POST">
     <p>Name your subplan:<br>
     <input type="text" name="name" minlength="1" maxlength="30"></p>
