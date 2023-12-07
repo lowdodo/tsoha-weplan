@@ -3,7 +3,6 @@ import users, plans
 from users import user_id_forname
 from app import app
 
-#First page we see, later we'll make this real pretty alright
 @app.route("/")
 def index():
     return render_template("index.html", session=session, plans=plans.get_allplans())
@@ -92,8 +91,6 @@ def add_subplan(plan_id):
             return render_template("error.html", message=f"Use a shorter description")
 
         plans.add_subplan(creator_id, creator_name, plan_id, name, description, is_done=False)
-
-        flash("new subplan added")
         return redirect(f"/plan/{plan_id}")
     
 @app.route("/plan/<int:plan_id>")
@@ -147,7 +144,7 @@ def remove_subplan(subplans_id, plan_id):
     creator = plans.get_subinfo_byid(subplans_id)[0][0]
     print("tässä on creator", creator) 
     print("tässä on user", user_id)
-    if user_id != creator or user_id != mainplan_creator:
+    if user_id != creator and user_id != mainplan_creator:
         return render_template("error.html", message="You dont have permission to remove this plan.")
     plans.remove_subplan(subplans_id, user_id, mainplan_creator)
     print("poisto onnistui")
@@ -156,19 +153,40 @@ def remove_subplan(subplans_id, plan_id):
 @app.route("/mark_done/<int:plan_id>", methods= ["POST"])
 def plandone(plan_id):
     current_status = plans.get_plan_info(plan_id)[4]
-    new_status = True
+    new_status = not current_status
+    print("this is current", current_status)
+    print("this is new", new_status)
     user_id = session.get("user_id")
     plans.update_planstatus(plan_id, new_status, user_id)
     return redirect("/")
 
-@app.route("/mark_done/<int:plan_id>/<int:subplans_id>", methods= ["POST"])
+@app.route("/mark_done/<int:plan_id>/<int:subplans_id>", methods=["POST"])
 def subplandone(subplans_id, plan_id):
-    current_status = plans.get_subinfo_byid(subplans_id)[0]
-    new_status = True
+    subplan_info = plans.get_subinfo_byid(subplans_id)
+    current_status = subplan_info[0][4]
+    new_status = not current_status
     user_id = session.get("user_id")
-    plans.update_planstatus(subplans_id, new_status, user_id)
-    return redirect("/") 
+    plans.update_subplanstatus(subplans_id, new_status, user_id)
+    return redirect(f"/plan/{plan_id}")
 
+@app.route("/ownplans/<int:plan_id>", methods=["POST"])
+def addtoown(plan_id):
+    print("addtoown routen alussa")
+    user_id = session.get("user_id")
+    creator_name = plans.get_plan_info(plan_id)[1]
+    is_done = plans.get_plan_info(plan_id)[4]
+    print("isdone", is_done)
+    plans.addtoown(user_id, plan_id, creator_name, is_done)
+    print("selvittiin addtoown routesta")
+    return redirect("/")
+
+@app.route("/ownplans/<int:user_plan_id>")
+def showown(user_plan_id):
+    print("lalaallalalalalalalla", user_plan_id)
+    user_id = session.get("user_id")
+    username = session.get("name")
+    own_plans = plans.get_ownplaninfo(user_id)
+    return render_template("ownplans.html", user_plan_id=user_plan_id, user_id=user_id, name = username, own_plans = own_plans)
 
 if __name__ == "__main__":
     app.run(debug=True)
