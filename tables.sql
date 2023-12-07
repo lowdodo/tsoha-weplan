@@ -30,7 +30,8 @@ CREATE TABLE priority (
     plan_id INTEGER REFERENCES plans(plan_id),
     creator_id INTEGER REFERENCES users(user_id), 
     name INTEGER REFERENCES plans(plan_id),
-    visible INTEGER
+    visible INTEGER,
+    is_done BOOLEAN
 );
 
 
@@ -39,5 +40,6 @@ CREATE TABLE ownplans (
     user_id INTEGER REFERENCES users(user_id),
     plan_id INTEGER REFERENCES plans(plan_id),
     creator_name TEXT REFERENCES users(name),
-    visible INTEGER
+    visible INTEGER,
+    is_done BOOLEAN
 );
