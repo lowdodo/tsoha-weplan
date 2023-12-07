@@ -20,13 +20,11 @@ def add_plan(creator_id, creator_name, name, description, is_done):
     db.session.commit()
     return plan_id
 
-
 def add_subplan(creator_id, creator_name, plan_id, name, description, is_done):
     sql = text("INSERT INTO subplans (plan_id, creator_id, creator_name, name, description, visible, is_done) VALUES (:plan_id, :creator_id, :creator_name, :name, :description, 1, False) RETURNING subplans_id")
     subplans_id = db.session.execute(sql, {"plan_id": plan_id, "creator_id": creator_id, "creator_name": creator_name, "name": name, "description": description}).fetchone()[0]
     db.session.commit()
     return subplans_id
-
 
 def remove_plan(plan_id, user_id):
     sql_remove_plan = text("UPDATE plans SET visible=0 WHERE plan_id=:plan_id AND creator_id=:user_id")
@@ -36,7 +34,6 @@ def remove_plan(plan_id, user_id):
     db.session.execute(sql_remove_subplans, {"plan_id": plan_id, "user_id": user_id})
 
     db.session.commit()
-
 
 def remove_subplan(subplans_id, user_id, mainplan_creator):
     sql = text("UPDATE subplans SET visible=0 WHERE (subplans_id=:subplans_id AND creator_id=:mainplan_creator) OR (subplans_id=:subplans_id AND creator_id=:user_id)")
@@ -65,6 +62,19 @@ def update_planstatus(plan_id, new_status, user_id):
     db.session.commit()
 
 def update_subplanstatus(subplans_id, new_status, user_id):
-    sql = text("UPDATE subplans SET is_done=:new_status")
+    sql = text("UPDATE subplans SET is_done=:new_status WHERE subplans_id=:subplans_id")
     db.session.execute(sql, {"subplans_id":subplans_id, "new_status":new_status, "user_id":user_id})
     db.session.commit()
+
+def addtoown(user_id, plan_id, creator_name, is_done):
+    print("sql addtoownissa nyt")
+    sql = text("INSERT INTO ownplans (user_id, plan_id, creator_name, visible, is_done)VALUES (:user_id, :plan_id, :creator_name, 1, :is_done) RETURNING user_plan_id")
+    user_plan_id = db.session.execute(sql, {"user_id":user_id, "plan_id": plan_id, "creator_name": creator_name, "is_done":is_done}).fetchone()[0]
+    print("userplanid", user_plan_id)
+    db.session.commit()
+    return user_plan_id
+
+def get_ownplaninfo(user_id):
+    sql = text("SELECT * FROM ownplans WHERE user_id = :user_id")
+    own_plans = db.session.execute(sql, {"user_id": user_id}).fetchall()
+    return own_plans
