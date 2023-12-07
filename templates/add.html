@@ -8,7 +8,12 @@
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 
 </head>
-
+<nav class="topnav">
+  <h2><a href="/">WeÞlan</a></h2>
+  <a href="/ownplans/{{user_id}}">Joined plans</a>
+  <a class="active" href="/addplan">Add a new plan</a>
+  <a href="/logout">Logout</a>
+</nav>
 <h2>Add a new plan</h2>
 <form action="/addplan" method="POST">
     <input type="hidden" name="creator_id" value="{{ session.user_id }}">
