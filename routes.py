@@ -113,7 +113,6 @@ def show_plan(plan_id):
         description = subplan_info.description
         id = subplan_info.subplans_id
         status = subplan_info.is_done
-        print(status)
         subplans.append({
             "creator": creator_name,
             "name": name,
@@ -170,23 +169,45 @@ def subplandone(subplans_id, plan_id):
     return redirect(f"/plan/{plan_id}")
 
 @app.route("/ownplans/<int:plan_id>", methods=["POST"])
-def addtoown(plan_id):
+def add_to_own(plan_id):
     print("addtoown routen alussa")
     user_id = session.get("user_id")
     creator_name = plans.get_plan_info(plan_id)[1]
     is_done = plans.get_plan_info(plan_id)[4]
     print("isdone", is_done)
-    plans.addtoown(user_id, plan_id, creator_name, is_done)
+    plans.add_to_own(user_id, plan_id, creator_name, is_done)
     print("selvittiin addtoown routesta")
     return redirect("/")
 
-@app.route("/ownplans/<int:user_plan_id>")
-def showown(user_plan_id):
-    print("lalaallalalalalalalla", user_plan_id)
-    user_id = session.get("user_id")
+@app.route("/ownplans/<int:user_id>")
+def showown(user_id):
+    # user_id = session.get("user_id")
     username = session.get("name")
     own_plans = plans.get_ownplaninfo(user_id)
-    return render_template("ownplans.html", user_plan_id=user_plan_id, user_id=user_id, name = username, own_plans = own_plans)
+    print("ownplans", own_plans)
+    ownplans = []
+    for own_plan in own_plans:
+        user_plan_id = own_plan.user_plan_id
+        user_id = own_plan.user_id
+        plan_id = own_plan.plan_id
+        plan_name = plans.get_plan_info(plan_id)[2]
+        creator_name = own_plan.creator_name
+        status = own_plan.is_done
+        ownplans.append({
+            "user_plan_id": user_plan_id,
+            "user_id": user_id,
+            "plan_id": plan_id,
+            "name": plan_name,
+            "creator_name": creator_name,
+            "status": status
+        })
+    return render_template("ownplans.html", username = username, ownplans = ownplans)
+
+@app.route("/remove_fromown/<int:user_plan_id>")
+def remove_fromown(user_plan_id):
+    user_id = session.get("user_id")
+    plans.remove_own(user_plan_id, user_id)
+    return redirect(f"/ownplans/{user_id}")
 
 if __name__ == "__main__":
     app.run(debug=True)
