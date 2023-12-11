@@ -6,12 +6,13 @@
   <title>Weplan - Add subplan</title>
 
   <link rel="stylesheet" type="text/css" href="/static/style.css">
-
 </head>
 <body>
 <nav class="topnav">
-  <a href="/ownplans/{{user_id}}">Joined plans</a>
+  <a href="/">WeÞlan</a>
+  <a href="/ownplans/{{session.user_id}}">Joined plans</a>
   <a href="/addplan">Add a new plan</a>
+  <a href="/statistics">Statistics</a>
   <a href="/logout">Logout</a>
 </nav>
 <h2>Add new subplans</h2>
@@ -28,7 +29,5 @@
 </form>
 
 <p><a href="/" class="go-back-link">Go back to Weplan</a></p>
-
-
 </body>
 </html>
