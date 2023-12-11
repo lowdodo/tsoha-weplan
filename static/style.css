@@ -2,47 +2,43 @@ body {
     margin: auto;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    background-color:  #463753;
+    background-color: #463753;
     color: #f8b195;
-    font-size:larger
+    font-size: larger;
 }
 
 h1, h2, h3, h4 {
-    color: #f67280; 
+    color: #f67280;
 }
 
 a {
     color: #f8b195;
 }
 
-a:hover{
-    color:#f67280
+a:hover {
+    color: #f67280;
 }
 
 div.description {
     white-space: pre-line;
 }
 
-textarea{
-    color:#355c7d;
-    background-color: #f8b195;
-}
-
-input{
-    color:#355c7d;
+textarea,
+input {
+    color: #355c7d;
     background-color: #f8b195;
 }
 
 button.submitbutton,
 a.go-back-link {
     background-color: #f67280;
-    border: #355c7d;
+    border: 1px solid #355c7d; /* Added border style */
     color: white;
     text-align: center;
     padding: 1%;
     text-decoration: wavy;
     display: inline-block;
-    font-size:medium;
+    font-size: medium;
     margin: 3px 1px;
     cursor: pointer;
 }
@@ -54,7 +50,7 @@ a.go-back-link {
 
 .subbox {
     border: 4px solid #f67280;
-    padding: 15px;
+    padding: 14px;
     margin: 15px;
     background-color: #f8b195;
 }
@@ -67,23 +63,23 @@ a.go-back-link {
 .topnav {
     overflow: hidden;
     background-color: #946aadd4;
-  }
-  
-  .topnav a {
+}
+
+.topnav a {
     float: left;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
-  }
-  
-  .topnav a:hover {
+    font-size: medium;
+}
+
+.topnav a:hover {
     background-color: #ddd;
     color: black;
-  }
-  
-  .topnav a.active {
-    background-color:#355c7d;
+}
+
+.topnav a.active {
+    background-color: #355c7d;
     color: white;
-  }
+}
