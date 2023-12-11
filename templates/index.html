@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weplan</title>
-
   <link rel="stylesheet" type="text/css" href="/static/style.css">
-
 </head>
 <body>
 {% if session.name %}
@@ -14,6 +12,7 @@
   <h2><a class="active" href="/">WeÞlan</a></h2>
   <a href="/ownplans/{{session.user_id}}">Joined plans</a>
   <a href="/addplan">Add a new plan</a>
+  <a href="/statistics">Statistics</a>
   <a href="/logout">Logout</a>
 </nav>
 {% endif %}
@@ -23,23 +22,15 @@
   <h3>Welcome!</h3>
   You have logged in as <b>{{ session.name }}</b>
   <p></p>
-  <a href="/logout">Logout</a>
-  <br><br>
   <hr>
-  Here is the list of all active plans:
+ <h4>List of all active plans:</h4>
   <ul>
     {% for plan in plans %}
     <a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a><br>
     <form action="/ownplans/{{ plan.plan_id }}" method="post">
       <button type="submit" class="submitbutton">Add to own plans</button>
-    </form>
+  </form>
     {% endfor %}
-  </ul>
-  Add a plan: 
-  <a href="/addplan">Add a new plan</a>
-
-  <a href="/ownplans/{{ user_plan_id }}">Own plans</a>
-
 {% else %}
   <h3>Frontpage</h3>
   <b>Welcome to weplan! Do you want to log in?</b>
@@ -55,6 +46,5 @@
   <p>New user?<br>
     <a href="/register">Register here</a></p>
 {% endif %}
-
 </body>
 </html>
