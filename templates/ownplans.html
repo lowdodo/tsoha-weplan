@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Weplan - {{name}} collection</title>
+  <title>Weplan - {{ name }} collection</title>
 
   <link rel="stylesheet" type="text/css" href="/static/style.css">
 
@@ -11,26 +11,30 @@
 <body>
   <nav class="topnav">
     <h2><a href="/">WeÞlan</a></h2>
-    <a class="active" href="/ownplans/{{user_id}}">Joined plans</a>
+    <a class="active" href="/ownplans/{{session.user_id}}">Joined plans</a>
     <a href="/addplan">Add a new plan</a>
     <a href="/statistics">Statistics</a>
     <a href="/logout">Logout</a>
   </nav>
-  <h1>{{ name }}'s Plans</h1>
+  <h1>{{ username }}'s Plans</h1>
   <hr>
+  {% if ownplans %}
   <h4>Here are the plans you have chosen to follow</h4>
   <ul>
-    {% for plan in own_plans %}
-      <a>{{ plan.id }}
-      <a>{{ plan.creator_name }}
-      {% if plan.is_done %} 
-      <a>done</a>
-      {% endif %}
+    {% for plan in ownplans %}
+        <p>Plan: {{ plan.name }}</p>
+        <p>Creator: {{ plan.creator_name }}</p>
+        {% if plan.status %} 
+          <p>Status: done</p>
+        {% else %}
+          <p>Status: not done</p>
+        {% endif %}
+        <a href="/remove_fromown/{{ plan.user_plan_id }}">Remove</a>
+        <hr>
     {% endfor %}
+  {% else %}  
+  <h4>You don't follow any plans jet</h4>
+  {% endif %}
   </ul>
-
 </body>
 </html>
-
-
-  
