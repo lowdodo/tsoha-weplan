@@ -59,6 +59,11 @@
           <div class="comment_username">{{ comment.username }}:</div>
           <h4>{{ comment.comment }}</h4>
           <h5>sent at: {{ comment.created_at}}</h4>
+            {% if comment.username == session.name or main_plan.creator == session.name %}
+            <form action="/removecomment/{{ plan_id }}/{{ comment.id }}" method="post">
+              <button type="submit", class="submitbutton">Remove comment</button>
+            </form>
+            {% endif %}
           </div>
         {% endfor %}
       </ul>
