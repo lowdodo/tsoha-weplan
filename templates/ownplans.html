@@ -22,14 +22,14 @@
   <h4>Here are the plans you have chosen to follow</h4>
   <ul>
     {% for plan in ownplans %}
-        <p>Plan: {{ plan.name }}</p>
+        <a href="/plan/{{ plan.plan_id}}">Plan: {{ plan.name }}</a>
         <p>Creator: {{ plan.creator_name }}</p>
         {% if plan.status %} 
           <p>Status: done</p>
         {% else %}
           <p>Status: not done</p>
         {% endif %}
-        <a href="/remove_fromown/{{ plan.user_plan_id }}">Remove</a>
+        <a href="/remove_fromown/{{ plan.user_plan_id }}">Stop following plan</a>
         <hr>
     {% endfor %}
   {% else %}  
