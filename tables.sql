@@ -25,15 +25,6 @@ CREATE TABLE subplans (
     is_done BOOLEAN
 );
 
-CREATE TABLE priority (
-    priority_id SERIAL PRIMARY KEY,
-    plan_id INTEGER REFERENCES plans(plan_id),
-    creator_id INTEGER REFERENCES users(user_id), 
-    name INTEGER REFERENCES plans(plan_id),
-    visible INTEGER,
-    is_done BOOLEAN
-);
-
 CREATE TABLE ownplans (
     user_plan_id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(user_id),
