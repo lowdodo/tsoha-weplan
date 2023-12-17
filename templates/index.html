@@ -26,11 +26,16 @@
  <h4>List of all active plans:</h4>
   <ul>
     {% for plan in plans %}
+    <br>
     <a href="/plan/{{ plan.plan_id }}">{{ plan.name }}</a><br>
-    <form action="/ownplans/{{ plan.plan_id }}" method="post">
+    <br>
+    <form action="/ownplans/{{ plan.plan_id }}" method="Post">
       <button type="submit" class="submitbutton">Add to own plans</button>
-  </form>
+    </form>
+    <br>
+    <hr>
     {% endfor %}
+
 {% else %}
   <h3>Frontpage</h3>
   <b>Welcome to weplan! Do you want to log in?</b>
