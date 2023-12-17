@@ -34,7 +34,6 @@ CREATE TABLE priority (
     is_done BOOLEAN
 );
 
-
 CREATE TABLE ownplans (
     user_plan_id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(user_id),
@@ -42,4 +41,14 @@ CREATE TABLE ownplans (
     creator_name TEXT REFERENCES users(name),
     visible INTEGER,
     is_done BOOLEAN
+);
+
+CREATE TABLE comments(
+    comment_id SERIAL PRIMARY KEY,
+    plan_id INTEGER REFERENCES plans(plan_id),
+    username TEXT REFERENCES users(name),
+    comment TEXT,
+    visible INTEGER,
+    is_done BOOLEAN,
+    created_at TIMESTAMP
 );
