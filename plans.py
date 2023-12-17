@@ -116,6 +116,18 @@ def comment(plan_id, username, comment):
     return comment_id
 
 def get_plan_comments(plan_id):
-    sql = text("SELECT username, comment, is_done, created_at FROM comments WHERE plan_id =:plan_id AND visible=1")
+    sql = text("SELECT username, comment, is_done, created_at, comment_id FROM comments WHERE plan_id =:plan_id AND visible=1")
     comments = db.session.execute(sql, {"plan_id":plan_id}).fetchall()
     return comments
+
+def get_commentinfo(comment_id):
+    sql = text("SELECT username, plan_id FROM comments WHERE comment_id=:comment_id AND visible=1")
+    result = db.session.execute(sql, {"comment_id": comment_id}).fetchone()
+    return result
+
+def delete_comment(comment_id):
+    sql = text("UPDATE comments SET visible=0 WHERE comment_id=:comment_id")
+    db.session.execute(sql, {"comment_id": comment_id})
+    db.session.commit()
+
+
