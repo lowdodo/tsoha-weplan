@@ -30,12 +30,11 @@ Voi olla, että joudut muuttamaan joidenkin tietokantojen nimiä, esim. users on
 Sovelluksen ominaisuuksia: 
 
 - käyttäjä voi kirjautua sisään ja ulos sekä luoda uuden tunnuksen.
-- käyttäjä näkee tilaston kaikkien käyttäjien viikon yhteenlasketut aktiivisuuspisteet, listan yhteisistä suunnitelmista, ja voi liittyä suunnittelualueelle.
-- käyttäjä voi lukea ja lisätä suunnittelualueella osasuunnitelmia, merkata osasuunnitelmia tehdyksi sekä nähdä tilaston muiden (ja omansa) käyttäjien edistymisen sillä suunnittelualueella.
+- käyttäjä näkee tilaston kaikkien käyttäjien suunnitelmien edistymisestä
+- käyttäjä voi lukea ja lisätä suunnittelualueella osasuunnitelmia, merkata osasuunnitelmia tehdyksi.
 - kuka vain käyttäjä voi saada osallisen ylläpitäjyyden luomalla uuden suunnitelman, tällöin hän on ylläpitäjä tälle suunnittelualueelle.
 - osaylläpitäjä pystyy hylkäämään suunnittelualueeltaan osasuunnitelmia, lisäämään tekstimateriaalia kuten kuvauksia, poistamaan käyttäjiä suunnitelmasta ja tekemään kaikkea mitä käyttäjäkin.
-- osaylläpitäjä voi lisätä toisille ylläpitäjyysoikeuksia niin, että käyttäjästä tulee osaylläpitäjä samalle suunnittelualueelle. 
-- pääylläpitäjä: kaiken kuratoija, pääsee käsiksi kaikkiin käyttäjiin ja suunnitelmiin ja muokata asiatonta sisältöä
+- kuka vain voi kommentoida suunnitelmaa, mutta kommentoinnin voi poistaa suunnitelman ylläpitäjä sekä kommentoija
 
   
 
@@ -49,6 +48,10 @@ Sovelluksen ominaisuuksia:
 - lisätty alisuunnitelmat toimivaksi
 - lisätty kaksi eri tietokantaa, priority ja ownplans, ei toimi vielä
 - korjattu ulkoasua
+
+**viimeinen palautus**
+- poistettu priority, korvattu kommentoinnilla
+- tehty tilastot
 
 
 
