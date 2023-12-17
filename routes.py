@@ -128,11 +128,13 @@ def show_plan(plan_id):
         comment_text = comment.comment
         status = comment.is_done
         created_at = comment.created_at
+        id = comment.comment_id
         comments.append({
             "username":username,
             "comment": comment_text,
             "status":status,
-            "created_at":created_at
+            "created_at":created_at,
+            "id":id
             })
 
     return render_template("plan.html", plan_id=plan_id, main_plan=main_plan, subplans_info=subplans, comments=comments)
@@ -153,14 +155,10 @@ def remove_subplan(subplans_id, plan_id):
     #later add "are you sure you want to remove" before actually removing
     user_id = session.get("user_id")
     mainplan_creator = plans.get_plan_info(plan_id)[0]
-    print("tässä on mainvcer", mainplan_creator)
     creator = plans.get_subinfo_byid(subplans_id)[0][0]
-    print("tässä on creator", creator) 
-    print("tässä on user", user_id)
     if user_id != creator and user_id != mainplan_creator:
         return render_template("error.html", message="You dont have permission to remove this plan.")
     plans.remove_subplan(subplans_id, user_id, mainplan_creator)
-    print("poisto onnistui")
     return redirect(f"/plan/{plan_id}")
 
 @app.route("/mark_done/<int:plan_id>", methods= ["POST"])
@@ -234,6 +232,14 @@ def comment(plan_id):
     comment_text = request.form.get("comment_text")
     plans.comment(plan_id, username, comment_text)
     return redirect(f"/plan/{plan_id}")
+
+@app.route("/removecomment/<int:plan_id>/<int:comment_id>", methods=["POST"])
+def deletecomment(plan_id, comment_id):
+    user_id = session.get("user_id")
+    plans.delete_comment(comment_id)
+    print("comment deletet")
+    return redirect(f"/plan/{plan_id}")
+
 
 
 if __name__ == "__main__":
