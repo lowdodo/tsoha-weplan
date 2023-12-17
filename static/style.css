@@ -29,16 +29,48 @@ input {
     background-color: #f8b195;
 }
 
+div.comments {
+    margin: 0 10px;
+}
+
+div.comment {
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    position: relative;
+
+}
+
+div.comment_username {
+    font-weight: bold;
+    color:#463753; 
+    top: 5px;
+    left: 14px;
+    position: absolute;
+}
+
+
+div.comment_notdone {
+    background-color:antiquewhite;
+    color: #946aadd4;
+}
+
+div.comment_done {
+    background-color: #d4edda;
+    color:#355c7d;
+}
+
 button.submitbutton,
 a.go-back-link {
     background-color: #f67280;
-    border: 1px solid #355c7d; /* Added border style */
+    border: 1px solid #355c7d;
     color: white;
     text-align: center;
     padding: 1%;
     text-decoration: wavy;
     display: inline-block;
     font-size: medium;
+    font-family: 'Courier New', Courier, monospace;
     margin: 3px 1px;
     cursor: pointer;
 }
