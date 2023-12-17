@@ -31,14 +31,10 @@
         {% for result in statistics_data %}
             <tr>
                 <td>{{ result.plan_name }}</td>
-                <td>{{ result.total_subplans }}</td>
-                <td>{{ result.completed }}</td>
+                <td>{% if result.total_subplans > 0 %}{{ result.total_subplans }}{% else %}No subplans{% endif %}</td>
+                <td>{% if result.total_subplans > 0 %}{{ result.completed }}{% else %}No subplans{% endif %}</td>
                 <td>{{ result.completionpros }}{% if result.completionpros is defined %}%{% endif %}</td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-
-<p><a href="/" class="go-back-link">Go back to Weplan</a></p>
-</body>
-</html>
