@@ -17,3 +17,28 @@
         <a href="/logout">Logout</a>
       </nav>
 <ul>
+<h2>Plan Statistics</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Plan Name</th>
+            <th>Subplans</th>
+            <th>Completed Subplans</th>
+            <th>Amount Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for result in statistics_data %}
+            <tr>
+                <td>{{ result.plan_name }}</td>
+                <td>{{ result.total_subplans }}</td>
+                <td>{{ result.completed }}</td>
+                <td>{{ result.completionpros }}{% if result.completionpros is defined %}%{% endif %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p><a href="/" class="go-back-link">Go back to Weplan</a></p>
+</body>
+</html>
