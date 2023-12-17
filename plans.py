@@ -93,3 +93,29 @@ def remove_own(user_plan_id, user_id):
     db.session.execute(sql, {"user_plan_id": user_plan_id, "user_id": user_id})
     db.session.commit()
     return True
+
+def statistics():
+    sql= text("""SELECT p.plan_id, p.name AS plan_name, p.is_done AS plan_status,
+                COUNT(sp.subplans_id) AS total_subplans,
+                SUM(CASE WHEN sp.is_done THEN 1 ELSE 0 END) AS completed,
+                CASE WHEN COUNT(sp.subplans_id) > 0 THEN
+                    ROUND((SUM(CASE WHEN sp.is_done THEN 1 ELSE 0 END) * 100.0) / COUNT(sp.subplans_id), 1)
+                    WHEN p.is_done THEN 100 ELSE 0
+                END AS completionpros FROM plans p
+                LEFT JOIN subplans sp ON p.plan_id = sp.plan_id
+                WHERE p.visible = 1
+                GROUP BY p.plan_id, p.name, p.is_done;""")
+
+    data = db.session.execute(sql).fetchall()
+    return data
+
+def comment(plan_id, username, comment):
+    sql = text("INSERT INTO comments (plan_id, username, comment, visible, is_done, created_at) VALUES (:plan_id, :username, :comment, 1, False, NOW()) RETURNING comment_id")
+    comment_id = db.session.execute(sql, {"plan_id":plan_id, "username":username, "comment":comment})
+    db.session.commit()
+    return comment_id
+
+def get_plan_comments(plan_id):
+    sql = text("SELECT username, comment, is_done, created_at FROM comments WHERE plan_id =:plan_id AND visible=1")
+    comments = db.session.execute(sql, {"plan_id":plan_id}).fetchall()
+    return comments
