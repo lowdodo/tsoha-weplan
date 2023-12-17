@@ -68,7 +68,6 @@ def add_plan():
         creator_id = session.get("user_id")
         creator_name = session.get("name")
         plan_id = plans.add_plan(creator_id, creator_name, name, description, is_done=False)
-        flash("new plan added")
         return redirect("/")
 
 @app.route("/addsub/<int:plan_id>", methods=["GET", "POST"])
@@ -121,7 +120,22 @@ def show_plan(plan_id):
             "status":status
         })
 
-    return render_template("plan.html", plan_id=plan_id, main_plan=main_plan, subplans_info=subplans)
+    #are there comments?
+    plans_comments = plans.get_plan_comments(plan_id)
+    comments = []
+    for comment in plans_comments:
+        username = comment.username
+        comment_text = comment.comment
+        status = comment.is_done
+        created_at = comment.created_at
+        comments.append({
+            "username":username,
+            "comment": comment_text,
+            "status":status,
+            "created_at":created_at
+            })
+
+    return render_template("plan.html", plan_id=plan_id, main_plan=main_plan, subplans_info=subplans, comments=comments)
 
 @app.route("/removeplan/<int:plan_id>")
 def remove_plan(plan_id):
@@ -208,6 +222,19 @@ def remove_fromown(user_plan_id):
     user_id = session.get("user_id")
     plans.remove_own(user_plan_id, user_id)
     return redirect(f"/ownplans/{user_id}")
+
+@app.route("/statistics")
+def statistics():
+    statistics_data = plans.statistics()
+    return render_template("statistics.html", statistics_data=statistics_data)
+
+@app.route("/commentplan/<int:plan_id>", methods=["POST"])
+def comment(plan_id):
+    username = session.get("name")
+    comment_text = request.form.get("comment_text")
+    plans.comment(plan_id, username, comment_text)
+    return redirect(f"/plan/{plan_id}")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
